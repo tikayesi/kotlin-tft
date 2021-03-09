@@ -1,5 +1,6 @@
 package com.enigma.gold_pocket
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -7,7 +8,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener, TransactionHandler {
 
 
     lateinit var balanceFragment: BalanceFragment
@@ -21,20 +22,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         transactionButton.setOnClickListener(this)
         historyButton.setOnClickListener(this)
         balanceFragment = BalanceFragment()
-        transactionFragment = TransactionFragment()
+        transactionFragment = TransactionFragment(this)
         historyFragment = HistoryFragment()
-        supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, balanceFragment).commit()
-        Log.i("ACTIVITY_NAME", this.toString())
+        //supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, balanceFragment).commit()
         //jika melakukan set view, dll sebelum melakukan set content view maka akan error
         //karena kita harus melakukan set layout sebelum  isi didalam layout
 //        nameTextView.text = "Tika Yesi Kristiani"
     }
 
+    override
     fun handleBuy(stock: Int){
         balance = balance + stock
         balanceFragment.updateBalance(balance)
     }
 
+    override
     fun handleSell(stock: Int){
         balance = balance - stock
         balanceFragment.updateBalance(balance)
@@ -49,7 +51,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             switchFragment(transactionFragment)
         }
         historyButton -> {
-            switchFragment(historyFragment)
+            startActivity(Intent(this, SplitScreenActivity::class.java))
         }
     }
     }

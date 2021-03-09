@@ -17,7 +17,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [TransactionFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class TransactionFragment : Fragment(), View.OnClickListener {
+class TransactionFragment(var transactionHandler: TransactionHandler?=null) : Fragment(), View.OnClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -47,10 +47,10 @@ class TransactionFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v){
             sellButton ->{
-                (activity as MainActivity).handleSell(stockInputText.text.toString().toInt())
+                transactionHandler?.handleSell(stockInputText.text.toString().toInt())
             }
             buyButton ->{
-                (activity as MainActivity).handleBuy(stockInputText.text.toString().toInt())
+                transactionHandler?.handleBuy(stockInputText.text.toString().toInt())
             }
         }
     }
