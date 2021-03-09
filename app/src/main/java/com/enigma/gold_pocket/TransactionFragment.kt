@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_transaction.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -13,10 +14,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [SellFragment.newInstance] factory method to
+ * Use the [TransactionFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class SellFragment : Fragment() {
+class TransactionFragment : Fragment(), View.OnClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -34,7 +35,24 @@ class SellFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sell, container, false)
+        return inflater.inflate(R.layout.fragment_transaction, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        sellButton.setOnClickListener(this)
+        buyButton.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        when(v){
+            sellButton ->{
+                (activity as MainActivity).handleSell(stockInputText.text.toString().toInt())
+            }
+            buyButton ->{
+                (activity as MainActivity).handleBuy(stockInputText.text.toString().toInt())
+            }
+        }
     }
 
 }

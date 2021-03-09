@@ -2,41 +2,53 @@ package com.enigma.gold_pocket
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
-    lateinit var buyFragment: BuyFragment
-    lateinit var sellFragment: SellFragment
+    lateinit var balanceFragment: BalanceFragment
+    lateinit var transactionFragment: TransactionFragment
     lateinit var historyFragment: HistoryFragment
+    var balance : Int = 0;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        buyProduct.setOnClickListener(this)
-        sellProduct.setOnClickListener(this)
-        historyProduct.setOnClickListener(this)
-        buyFragment = BuyFragment()
-        sellFragment = SellFragment()
+        balanceButton.setOnClickListener(this)
+        transactionButton.setOnClickListener(this)
+        historyButton.setOnClickListener(this)
+        balanceFragment = BalanceFragment()
+        transactionFragment = TransactionFragment()
         historyFragment = HistoryFragment()
-        supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, buyFragment).commit()
+        supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, balanceFragment).commit()
+        Log.i("ACTIVITY_NAME", this.toString())
         //jika melakukan set view, dll sebelum melakukan set content view maka akan error
         //karena kita harus melakukan set layout sebelum  isi didalam layout
 //        nameTextView.text = "Tika Yesi Kristiani"
     }
 
+    fun handleBuy(stock: Int){
+        balance = balance + stock
+        balanceFragment.updateBalance(balance)
+    }
+
+    fun handleSell(stock: Int){
+        balance = balance - stock
+        balanceFragment.updateBalance(balance)
+    }
+
     override fun onClick(v: View?) {
     when(v){
-        buyProduct -> {
-            switchFragment(buyFragment)
+        balanceButton -> {
+            switchFragment(balanceFragment)
         }
-        sellProduct -> {
-            switchFragment(sellFragment)
+        transactionButton -> {
+            switchFragment(transactionFragment)
         }
-        historyProduct -> {
+        historyButton -> {
             switchFragment(historyFragment)
         }
     }

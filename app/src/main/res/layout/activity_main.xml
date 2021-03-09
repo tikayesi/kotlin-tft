@@ -25,21 +25,21 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/buyProduct"
+                android:id="@+id/balanceButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Buy" />
+                android:text="Balance" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/sellProduct"
+                android:id="@+id/transactionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Sell" />
+                android:text="Transaction" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/historyProduct"
+                android:id="@+id/historyButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

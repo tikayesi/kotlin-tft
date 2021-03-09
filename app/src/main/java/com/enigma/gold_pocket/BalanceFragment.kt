@@ -1,10 +1,12 @@
 package com.enigma.gold_pocket
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_balance.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -13,10 +15,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [BuyFragment.newInstance] factory method to
+ * Use the [BalanceFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class BuyFragment : Fragment() {
+class BalanceFragment(var balance : Int = 0) : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -32,7 +34,17 @@ class BuyFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_buy, container, false)
+        return inflater.inflate(R.layout.fragment_balance, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.i("Balance Fragment", activity.toString())
+        balanceTextView.text = balance.toString()
+    }
+
+    fun updateBalance(balance: Int){
+       this.balance= balance;
     }
 
 }
