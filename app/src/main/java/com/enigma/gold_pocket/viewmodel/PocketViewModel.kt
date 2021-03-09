@@ -1,16 +1,17 @@
 package com.enigma.gold_pocket.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class PocketViewModel: ViewModel() {
-    var balance = 0
+    var balance  : MutableLiveData<Int> = MutableLiveData<Int>(0)
 
     fun handleIncrement(increment : Int){
-        balance += increment
+        balance.postValue(balance.value?.plus(increment))
     }
 
     fun handleDecrement(decrement : Int){
-        balance -= decrement
+        balance.postValue(balance.value?.minus(decrement))
     }
 
 }
