@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import com.enigma.gold_pocket.viewmodel.PocketViewModel
 import kotlinx.android.synthetic.main.fragment_transaction.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -17,10 +20,15 @@ private const val ARG_PARAM2 = "param2"
  * Use the [TransactionFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class TransactionFragment(var transactionHandler: TransactionHandler?=null) : Fragment(), View.OnClickListener {
+class TransactionFragment : Fragment(), View.OnClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    //memanggil view model dengan fragment
+    //cara lama menggunakan ViewModelProviders
+    //val pocketViewModel: PocketViewModel = ViewModelProviders.of(requireActivity()).get(PocketViewModel::class.java)
+    lateinit var pocketViewModel: PocketViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +43,7 @@ class TransactionFragment(var transactionHandler: TransactionHandler?=null) : Fr
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_transaction, container, false)
     }
 
@@ -42,15 +51,18 @@ class TransactionFragment(var transactionHandler: TransactionHandler?=null) : Fr
         super.onViewCreated(view, savedInstanceState)
         sellButton.setOnClickListener(this)
         buyButton.setOnClickListener(this)
+        pocketViewModel = ViewModelProviders.of(requireActivity()).get(PocketViewModel::class.java)
     }
 
     override fun onClick(v: View?) {
         when(v){
             sellButton ->{
-                transactionHandler?.handleSell(stockInputText.text.toString().toInt())
+                pocketViewModel.handleDecrement(stockInputText.text.toString().toInt())
+               // transactionHandler?.handleSell(stockInputText.text.toString().toInt())
             }
             buyButton ->{
-                transactionHandler?.handleBuy(stockInputText.text.toString().toInt())
+                pocketViewModel.handleIncrement(stockInputText.text.toString().toInt())
+               // transactionHandler?.handleBuy(stockInputText.text.toString().toInt())
             }
         }
     }

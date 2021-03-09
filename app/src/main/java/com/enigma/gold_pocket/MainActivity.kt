@@ -6,15 +6,21 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import com.enigma.gold_pocket.viewmodel.PocketViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), View.OnClickListener, TransactionHandler {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
     lateinit var balanceFragment: BalanceFragment
     lateinit var transactionFragment: TransactionFragment
     lateinit var historyFragment: HistoryFragment
-    var balance : Int = 0;
+   //cara memnaggil view model dg activity
+    //val pocketViewModel: PocketViewModel = ViewModelProviders.of(this).get(PocketViewModel::class.java)
+//    var balance : Int = 0;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -22,7 +28,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TransactionHandl
         transactionButton.setOnClickListener(this)
         historyButton.setOnClickListener(this)
         balanceFragment = BalanceFragment()
-        transactionFragment = TransactionFragment(this)
+        transactionFragment = TransactionFragment()
         historyFragment = HistoryFragment()
         //supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, balanceFragment).commit()
         //jika melakukan set view, dll sebelum melakukan set content view maka akan error
@@ -30,17 +36,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TransactionHandl
 //        nameTextView.text = "Tika Yesi Kristiani"
     }
 
-    override
-    fun handleBuy(stock: Int){
-        balance = balance + stock
-        balanceFragment.updateBalance(balance)
-    }
-
-    override
-    fun handleSell(stock: Int){
-        balance = balance - stock
-        balanceFragment.updateBalance(balance)
-    }
+//    override
+//    fun handleBuy(stock: Int){
+//        balance = balance + stock
+//        balanceFragment.updateBalance(balance)
+//    }
+//
+//    override
+//    fun handleSell(stock: Int){
+//        balance = balance - stock
+//        balanceFragment.updateBalance(balance)
+//    }
 
     override fun onClick(v: View?) {
     when(v){
