@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.enigma.gold_pocket.viewmodel.PocketViewModel
 import kotlinx.android.synthetic.main.fragment_transaction.*
 
@@ -51,7 +50,7 @@ class TransactionFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         sellButton.setOnClickListener(this)
         buyButton.setOnClickListener(this)
-        pocketViewModel = ViewModelProviders.of(requireActivity()).get(PocketViewModel::class.java)
+        pocketViewModel = ViewModelProvider(requireActivity()).get(PocketViewModel::class.java)
     }
 
     override fun onClick(v: View?) {
